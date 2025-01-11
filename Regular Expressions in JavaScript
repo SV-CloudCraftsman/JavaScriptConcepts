@@ -1,0 +1,120 @@
+Regular Expressions in JavaScript
+A regular expression (regex or regexp) is a sequence of characters used to define a search pattern. It is commonly used for string matching and manipulation, such as validating input, searching for specific patterns, or replacing text.
+
+Basic Syntax
+A regular expression is typically written between two slashes (/pattern/) or created using the RegExp constructor.
+
+Literal Syntax:
+
+javascript
+Copy code
+const regex = /pattern/;
+Using RegExp Constructor:
+
+javascript
+Copy code
+const regex = new RegExp("pattern");
+Regular Expression Components
+Symbol	Description	Example
+.	Matches any single character except a newline	/a.b/ matches "aab", "axb"
+^	Matches the beginning of a string	/^abc/ matches "abc123"
+$	Matches the end of a string	/xyz$/ matches "123xyz"
+*	Matches 0 or more occurrences of the preceding character	/a*/ matches "", "a", "aaa"
++	Matches 1 or more occurrences of the preceding character	/a+/ matches "a", "aaa"
+?	Matches 0 or 1 occurrence of the preceding character	/a?/ matches "", "a"
+{n}	Matches exactly n occurrences	/a{3}/ matches "aaa"
+{n,}	Matches n or more occurrences	/a{2,}/ matches "aa", "aaa"
+{n,m}	Matches between n and m occurrences	/a{2,4}/ matches "aa", "aaa", "aaaa"
+[]	Matches any character inside the brackets	/[abc]/ matches "a", "b", "c"
+[^]	Matches any character NOT inside the brackets	/[^abc]/ matches "d"
+`	`	OR operator; matches either pattern
+()	Groups patterns together	/(abc)+/ matches "abcabc"
+Common Methods Using Regex
+test(): Checks if a pattern exists in a string (returns true or false).
+
+javascript
+Copy code
+const regex = /hello/;
+console.log(regex.test("hello world")); // true
+console.log(regex.test("hi there"));    // false
+exec(): Searches for a match and returns an array or null.
+
+javascript
+Copy code
+const regex = /hello/;
+console.log(regex.exec("hello world")); // ["hello"]
+console.log(regex.exec("hi there"));    // null
+match(): Returns an array of matches (or null) when used with strings.
+
+javascript
+Copy code
+const str = "cat bat mat";
+const regex = /at/g; // Global flag
+console.log(str.match(regex)); // ["at", "at", "at"]
+replace(): Replaces matched parts of a string.
+
+javascript
+Copy code
+const str = "hello world";
+const regex = /world/;
+console.log(str.replace(regex, "universe")); // "hello universe"
+split(): Splits a string by the matched pattern.
+
+javascript
+Copy code
+const str = "one, two, three";
+const regex = /, /;
+console.log(str.split(regex)); // ["one", "two", "three"]
+Real-Time Examples
+Example 1: Email Validation
+Check if a string is a valid email address.
+
+javascript
+Copy code
+const email = "user@example.com";
+const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+console.log(regex.test(email)); // true
+console.log(regex.test("invalid-email")); // false
+Example 2: Phone Number Validation
+Match phone numbers in the format (123) 456-7890 or 123-456-7890.
+
+javascript
+Copy code
+const phone = "(123) 456-7890";
+const regex = /^(\(\d{3}\)\s|\d{3}-)\d{3}-\d{4}$/;
+
+console.log(regex.test(phone)); // true
+console.log(regex.test("123-4567")); // false
+Example 3: Extracting Hashtags
+Extract hashtags from a string.
+
+javascript
+Copy code
+const text = "Loving the #sunshine and #blueSky!";
+const regex = /#\w+/g;
+
+console.log(text.match(regex)); // ["#sunshine", "#blueSky"]
+Example 4: Password Strength Check
+Ensure a password contains at least one uppercase, one lowercase, one number, and is 8+ characters long.
+
+javascript
+Copy code
+const password = "Str0ngPass!";
+const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+
+console.log(regex.test(password)); // true
+console.log(regex.test("weakpass")); // false
+Example 5: Replace All Occurrences
+Replace all instances of a word in a sentence.
+
+javascript
+Copy code
+const sentence = "The cat sat on the mat.";
+const regex = /cat|mat/g;
+
+console.log(sentence.replace(regex, "dog")); // "The dog sat on the dog."
+How to Learn and Use Regular Expressions
+Start Small: Begin with simple patterns like matching specific words or numbers.
+Use Tools: Utilize online regex testers (like regex101.com) to experiment with patterns.
+Practice Common Use Cases: Validate inputs (emails, passwords), search for patterns, and replace text.
