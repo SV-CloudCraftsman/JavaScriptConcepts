@@ -1,6 +1,5 @@
 Closures in JavaScript
-Closure is a fundamental concept in JavaScript that allows a function to "remember" the variables and scope in which it was created, even after that scope has been exited. 
-Closures enable powerful programming techniques such as data hiding, function factories, and maintaining state across function calls.
+Closure is a fundamental concept in JavaScript that allows a function to "remember" the variables and scope in which it was created, even after that scope has been exited. Closures enable powerful programming techniques such as data hiding, function factories, and maintaining state across function calls.
 
 Definition
 A closure is created when:
