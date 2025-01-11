@@ -1,0 +1,218 @@
+Variables and Data Types in JavaScript
+In JavaScript, variables are containers for storing data values, and data types represent the kind of data these variables can hold. Understanding variables and data types is crucial because they form the foundation of any program.
+
+1. Variables
+A variable is a named storage that can hold data and be manipulated or updated during the program's execution.
+
+Declaring Variables
+JavaScript provides three ways to declare variables:
+
+var (function-scoped, older way)
+let (block-scoped, modern way)
+const (block-scoped, immutable)
+Syntax:
+javascript
+Copy code
+let variableName = value;
+const constantName = value;
+var oldStyleVariable = value;
+Real-Time Example:
+Tracking the status of an online order:
+
+javascript
+Copy code
+let orderStatus = "Processing"; // Order is being processed
+console.log(orderStatus);
+
+orderStatus = "Shipped"; // Order has been shipped
+console.log(orderStatus);
+Output:
+Processing
+Shipped
+
+2. Rules for Naming Variables
+Must start with a letter, underscore _, or dollar sign $.
+Cannot start with a number.
+Cannot use reserved keywords (e.g., let, const, if).
+Example:
+Valid:
+
+javascript
+Copy code
+let _userName = "John";
+let $price = 100;
+let item3 = "Book";
+Invalid:
+
+javascript
+Copy code
+let 3item = "Pen"; // Error: Cannot start with a number
+3. Data Types in JavaScript
+JavaScript data types are divided into Primitive Types and Non-Primitive Types (Reference Types).
+
+Primitive Data Types
+These types hold simple, immutable values.
+
+String
+Used to represent text. Strings are enclosed in quotes (', ", or ``).
+
+Example:
+
+javascript
+Copy code
+let name = "Alice";
+console.log("Hello, " + name);
+Output:
+Hello, Alice
+
+Number
+Represents both integers and floating-point numbers.
+
+Example:
+
+javascript
+Copy code
+let age = 25; // Integer
+let price = 99.99; // Floating-point
+console.log("Age:", age, "Price:", price);
+Output:
+Age: 25 Price: 99.99
+
+Boolean
+Represents true or false.
+
+Example: Checking if a user is logged in:
+
+javascript
+Copy code
+let isLoggedIn = true;
+console.log("User logged in:", isLoggedIn);
+Output:
+User logged in: true
+
+Undefined
+A variable declared but not assigned a value.
+
+Example:
+
+javascript
+Copy code
+let x;
+console.log(x); // Undefined
+Output:
+undefined
+
+Null
+Represents the intentional absence of value.
+
+Example:
+
+javascript
+Copy code
+let y = null;
+console.log(y); // Null
+Output:
+null
+
+Symbol (Introduced in ES6)
+Represents a unique identifier.
+
+Example:
+
+javascript
+Copy code
+let sym = Symbol("id");
+console.log(sym);
+Output:
+Symbol(id)
+
+BigInt (Introduced in ES11)
+Represents numbers larger than Number.MAX_SAFE_INTEGER.
+
+Example:
+
+javascript
+Copy code
+let largeNumber = 123456789012345678901234567890n;
+console.log(largeNumber);
+Output:
+123456789012345678901234567890n
+
+Non-Primitive Data Types (Reference Types)
+Object
+Used to store collections of data and complex entities.
+
+Example: Representing a product:
+
+javascript
+Copy code
+let product = {
+    name: "Laptop",
+    price: 50000,
+    brand: "Dell"
+};
+console.log(product.name); // Accessing object property
+Output:
+Laptop
+
+Array
+A special type of object for storing ordered lists of items.
+
+Example: Storing a list of fruits:
+
+javascript
+Copy code
+let fruits = ["Apple", "Banana", "Mango"];
+console.log(fruits[1]); // Accessing the second item
+Output:
+Banana
+
+Function
+A block of code designed to perform a particular task.
+
+Example: Adding two numbers:
+
+javascript
+Copy code
+function add(a, b) {
+    return a + b;
+}
+console.log(add(5, 3));
+Output:
+8
+
+Dynamic Typing in JavaScript
+JavaScript is a dynamically typed language, meaning variables can change their type.
+
+Example:
+javascript
+Copy code
+let data = 42; // Number
+console.log(typeof data);
+
+data = "Hello"; // Now String
+console.log(typeof data);
+Output:
+number
+string
+
+Real-Time Use Case
+Creating an e-commerce order system:
+
+javascript
+Copy code
+let orderID = 12345; // Number
+let customerName = "John Doe"; // String
+let isDelivered = false; // Boolean
+let deliveryDate = null; // Null
+let items = ["Phone", "Charger"]; // Array
+let address = { city: "Mumbai", pin: 400001 }; // Object
+
+console.log(`Order #${orderID} for ${customerName}`);
+console.log("Items:", items);
+console.log("Delivery City:", address.city);
+Output:
+Order #12345 for John Doe
+Items: Phone, Charger
+Delivery City: Mumbai
+
