@@ -1,0 +1,444 @@
+1. If Statement
+The if statement executes a block of code only if a specified condition evaluates to true.
+
+Syntax:
+javascript
+Copy code
+if (condition) {
+    // code to be executed if condition is true
+}
+Example:
+Imagine you're at a grocery store checkout:
+
+If your total bill exceeds ₹500, you get a discount.
+javascript
+Copy code
+let totalBill = 600;
+
+if (totalBill > 500) {
+    console.log("You get a discount!");
+}
+Output:
+You get a discount!
+
+*****************************************************************************************************************************************************************************************
+
+2. If-Else Statement
+The if-else statement provides an alternative block of code to execute when the condition is false.
+
+Syntax:
+javascript
+Copy code
+if (condition) {
+    // code if condition is true
+} else {
+    // code if condition is false
+}
+Example:
+Same grocery store example, but now:
+
+If your total bill exceeds ₹500, you get a discount. Otherwise, you don't.
+javascript
+Copy code
+let totalBill = 400;
+
+if (totalBill > 500) {
+    console.log("You get a discount!");
+} else {
+    console.log("No discount available.");
+}
+Output:
+No discount available.
+
+*****************************************************************************************************************************************************************************************
+
+3. Switch Statement
+The switch statement is used to perform different actions based on multiple conditions.
+
+Syntax:
+javascript
+Copy code
+switch (expression) {
+    case value1:
+        // code block
+        break;
+    case value2:
+        // code block
+        break;
+    default:
+        // code block
+}
+Example:
+Imagine choosing a mode of transportation based on distance:
+
+0–5 km: Walk
+6–20 km: Bike
+Above 20 km: Car
+javascript
+Copy code
+let distance = 10;
+
+switch (true) {
+    case distance <= 5:
+        console.log("You should walk.");
+        break;
+    case distance <= 20:
+        console.log("You should take a bike.");
+        break;
+    default:
+        console.log("You should drive a car.");
+}
+Output:
+You should take a bike.
+
+*****************************************************************************************************************************************************************************************
+
+4. Loops
+Loops repeat a block of code until a condition is no longer satisfied.
+
+a. For Loop
+Executes a block of code a specific number of times.
+
+Syntax:
+javascript
+Copy code
+for (initialization; condition; increment/decrement) {
+    // code to be executed
+}
+Example:
+Counting the number of items in your cart:
+
+javascript
+Copy code
+let items = ["apple", "banana", "mango"];
+
+for (let i = 0; i < items.length; i++) {
+    console.log(items[i]);
+}
+Output:
+apple
+banana
+mango
+
+*****************************************************************************************************************************************************************************************
+
+b. While Loop
+Executes a block of code as long as the condition is true.
+
+Syntax:
+javascript
+Copy code
+while (condition) {
+    // code to be executed
+}
+Example:
+Filling a jar until it's full:
+
+javascript
+Copy code
+let jarCapacity = 5;
+let currentFilling = 0;
+
+while (currentFilling < jarCapacity) {
+    currentFilling++;
+    console.log("Filling the jar: " + currentFilling);
+}
+Output:
+Filling the jar: 1
+Filling the jar: 2
+Filling the jar: 3
+Filling the jar: 4
+Filling the jar: 5
+
+*****************************************************************************************************************************************************************************************
+
+c. forEach Loop
+Iterates over each element in an array and performs an action.
+
+Syntax:
+javascript
+Copy code
+array.forEach(function(element) {
+    // code to be executed
+});
+Example:
+Printing the prices of items in a shopping cart:
+
+javascript
+Copy code
+let prices = [100, 200, 300];
+
+prices.forEach(price => {
+    console.log("Price: ₹" + price);
+});
+Output:
+Price: ₹100
+Price: ₹200
+Price: ₹300
+
+d. for-in Loop
+Iterates over the keys of an object.
+
+Syntax:
+javascript
+Copy code
+for (key in object) {
+    // code to be executed
+}
+Example:
+Getting the details of a product:
+
+javascript
+Copy code
+let product = { name: "Laptop", price: 50000, brand: "Dell" };
+
+for (let key in product) {
+    console.log(key + ": " + product[key]);
+}
+Output:
+name: Laptop
+price: 50000
+brand: Dell
+
+*****************************************************************************************************************************************************************************************
+
+e. for-of Loop
+Iterates over the values of an iterable object (e.g., arrays, strings).
+
+Syntax:
+javascript
+Copy code
+for (value of iterable) {
+    // code to be executed
+}
+Example:
+Iterating over the names of students in a class:
+
+javascript
+Copy code
+let students = ["John", "Sara", "Mike"];
+
+for (let student of students) {
+    console.log("Student: " + student);
+}
+Output:
+Student: John
+Student: Sara
+Student: Mike
+
+*****************************************************************************************************************************************************************************************
+
+5. Ternary Operator
+The ternary operator is a shorthand for if-else statements. It provides a way to write simple conditional statements in a single line.
+
+Syntax:
+javascript
+Copy code
+condition ? expressionIfTrue : expressionIfFalse;
+Example:
+Check if a number is even or odd:
+
+javascript
+Copy code
+let number = 5;
+let result = (number % 2 === 0) ? "Even" : "Odd";
+console.log(result);
+Output:
+Odd
+
+*****************************************************************************************************************************************************************************************
+
+6. Try-Catch-Finally
+This structure is used for exception handling to manage errors gracefully.
+
+Syntax:
+javascript
+Copy code
+try {
+    // code that might throw an error
+} catch (error) {
+    // code to handle the error
+} finally {
+    // code that will always execute
+}
+Example:
+Reading user input and handling invalid data:
+
+javascript
+Copy code
+try {
+    let num = parseInt("abc"); // This will cause an error
+    if (isNaN(num)) {
+        throw new Error("Invalid number!");
+    }
+    console.log("Valid number:", num);
+} catch (error) {
+    console.log("Error:", error.message);
+} finally {
+    console.log("Execution completed.");
+}
+Output:
+Error: Invalid number!
+Execution completed.
+
+*****************************************************************************************************************************************************************************************
+
+7. Break and Continue
+These keywords alter the normal execution flow of loops.
+
+a. Break
+Exits the loop entirely.
+
+Example:
+Stop searching when a specific item is found:
+
+javascript
+Copy code
+let items = ["apple", "banana", "grape"];
+
+for (let i = 0; i < items.length; i++) {
+    if (items[i] === "banana") {
+        console.log("Found banana!");
+        break;
+    }
+    console.log(items[i]);
+}
+Output:
+apple
+Found banana!
+
+*****************************************************************************************************************************************************************************************
+
+b. Continue
+Skips the current iteration and moves to the next.
+
+Example:
+Skip even numbers:
+
+javascript
+Copy code
+for (let i = 1; i <= 5; i++) {
+    if (i % 2 === 0) {
+        continue;
+    }
+    console.log(i);
+}
+Output:
+1
+3
+5
+
+*****************************************************************************************************************************************************************************************
+
+9. Recursion
+Recursion is a control flow concept where a function calls itself to solve a problem.
+
+Example:
+Calculating the factorial of a number:
+
+javascript
+Copy code
+function factorial(n) {
+    if (n === 1) return 1; // Base case
+    return n * factorial(n - 1); // Recursive call
+}
+
+console.log(factorial(5)); // 5 * 4 * 3 * 2 * 1 = 120
+Output:
+120
+
+*****************************************************************************************************************************************************************************************
+
+10. Labelled Statements
+Labels are identifiers that allow you to reference loops and blocks.
+
+Syntax:
+javascript
+Copy code
+labelName: for (condition) {
+    // code
+}
+Example:
+Breaking out of nested loops:
+
+javascript
+Copy code
+outerLoop: for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+        if (i === 1 && j === 1) {
+            break outerLoop;
+        }
+        console.log(`i: ${i}, j: ${j}`);
+    }
+}
+Output:
+i: 0, j: 0
+i: 0, j: 1
+i: 0, j: 2
+i: 1, j: 0
+
+*****************************************************************************************************************************************************************************************
+
+11. Return Statement
+The return statement exits a function and optionally returns a value.
+
+Example:
+Returning the square of a number:
+
+javascript
+Copy code
+function square(num) {
+    return num * num;
+}
+
+console.log(square(4)); // Returns 16
+Output:
+16
+
+*****************************************************************************************************************************************************************************************
+
+12. Async/Await
+In asynchronous programming, async/await controls the flow of promises.
+
+Syntax:
+javascript
+Copy code
+async function functionName() {
+    await promise;
+}
+Example:
+Simulating a delay in processing:
+
+javascript
+Copy code
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function processOrder() {
+    console.log("Order received.");
+    await delay(2000); // Simulating a 2-second delay
+    console.log("Order processed.");
+}
+
+processOrder();
+Output:
+Order received.
+(After 2 seconds)
+Order processed.
+
+9. Conditional Operator (Short-circuiting with && and ||)
+These operators can short-circuit expressions based on conditions.
+
+Example:
+Logging a message only if a condition is true:
+
+javascript
+Copy code
+let isLoggedIn = true;
+
+isLoggedIn && console.log("Welcome back!"); // Executes only if true
+Output:
+Welcome back!
+
+*****************************************************************************************************************************************************************************************
