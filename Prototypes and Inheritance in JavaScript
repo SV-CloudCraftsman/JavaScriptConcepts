@@ -1,0 +1,174 @@
+Prototypes and Inheritance in JavaScript
+JavaScript uses a prototype-based inheritance model where objects inherit from other objects. This is different from the class-based inheritance seen in other programming languages like Java or C#. Let’s dive into these concepts step by step.
+
+1. Prototypes
+Every JavaScript object has a hidden property called [[Prototype]] that links to another object. This is its prototype.
+The prototype defines properties and methods that are shared across all instances of the object.
+Accessing Prototypes
+You can access an object’s prototype using:
+Object.getPrototypeOf(obj)
+The __proto__ property (though it's deprecated, it’s still widely used).
+You can define a prototype for a constructor function using Constructor.prototype.
+2. Prototype Chain
+If a property or method is not found on an object, JavaScript looks for it in the object’s prototype. If it’s not found there, the search continues up the chain until the root (Object.prototype).
+This chain of linked prototypes is called the prototype chain.
+Example: Prototype Chain
+javascript
+Copy code
+const parent = {
+    greet() {
+        console.log("Hello from parent!");
+    }
+};
+
+const child = Object.create(parent);
+child.sayHi = function() {
+    console.log("Hi from child!");
+};
+
+child.greet(); // Inherited from parent: "Hello from parent!"
+child.sayHi(); // Defined in child: "Hi from child!"
+Explanation:
+
+The child object doesn’t have the greet method, so JavaScript looks for it in the prototype (parent) and calls it.
+3. Inheritance in JavaScript
+Inheritance allows objects to inherit properties and methods from other objects. There are two main ways to implement inheritance in JavaScript:
+
+(a) Using Object.create()
+The Object.create() method creates a new object with a specified prototype.
+
+Example: Simple Inheritance
+javascript
+Copy code
+const vehicle = {
+    start() {
+        console.log("Starting vehicle...");
+    }
+};
+
+const car = Object.create(vehicle);
+car.drive = function() {
+    console.log("Driving car...");
+};
+
+car.start(); // Inherited: "Starting vehicle..."
+car.drive(); // "Driving car..."
+(b) Using Constructor Functions
+A constructor function is used to create multiple objects with shared properties and methods.
+
+Example: Constructor Function with Prototypes
+javascript
+Copy code
+function Animal(name) {
+    this.name = name;
+}
+
+Animal.prototype.speak = function() {
+    console.log(`${this.name} makes a noise.`);
+};
+
+const dog = new Animal("Dog");
+dog.speak(); // "Dog makes a noise."
+Explanation:
+
+The speak method is defined on Animal.prototype, so all instances of Animal share this method without duplicating it.
+(c) Using ES6 class Syntax
+The class syntax is syntactic sugar over the prototype-based inheritance. It provides a more familiar, structured way to define constructors and methods.
+
+Example: Inheritance with Classes
+javascript
+Copy code
+class Animal {
+    constructor(name) {
+        this.name = name;
+    }
+    speak() {
+        console.log(`${this.name} makes a noise.`);
+    }
+}
+
+class Dog extends Animal {
+    speak() {
+        console.log(`${this.name} barks.`);
+    }
+}
+
+const dog = new Dog("Buddy");
+dog.speak(); // "Buddy barks."
+Explanation:
+
+The Dog class extends the Animal class.
+The speak method is overridden in the Dog class.
+Prototype Chain in Action
+Example: Prototype Lookup
+javascript
+Copy code
+const grandparent = {
+    greet() {
+        console.log("Hello from grandparent!");
+    }
+};
+
+const parent = Object.create(grandparent);
+parent.sayHi = function() {
+    console.log("Hi from parent!");
+};
+
+const child = Object.create(parent);
+child.sayHello = function() {
+    console.log("Hello from child!");
+};
+
+child.greet(); // From grandparent: "Hello from grandparent!"
+child.sayHi(); // From parent: "Hi from parent!"
+child.sayHello(); // From child: "Hello from child!"
+Real-Time Examples
+1. Prototypes in Arrays
+Array methods like map, filter, and reduce come from Array.prototype.
+
+javascript
+Copy code
+const numbers = [1, 2, 3];
+console.log(numbers.map(num => num * 2)); // [2, 4, 6]
+
+// Internally, map is accessed from Array.prototype.map
+console.log(numbers.__proto__ === Array.prototype); // true
+2. Browser DOM Manipulation
+In the DOM, elements like <div> inherit properties and methods from HTMLElement.prototype and Element.prototype.
+
+javascript
+Copy code
+const div = document.createElement("div");
+console.log(div instanceof HTMLElement); // true
+console.log(div instanceof Element); // true
+3. Custom Object Inheritance
+A custom example where you define your own prototype chain:
+
+javascript
+Copy code
+const electronics = {
+    powerOn() {
+        console.log("Powering on...");
+    }
+};
+
+const phone = Object.create(electronics);
+phone.makeCall = function() {
+    console.log("Making a call...");
+};
+
+phone.powerOn(); // Inherited: "Powering on..."
+phone.makeCall(); // "Making a call..."
+Key Advantages of Prototypes and Inheritance
+Memory Efficiency: Shared methods are stored once on the prototype instead of duplicating them for each instance.
+Code Reusability: Inheritance promotes reusing logic across objects and classes.
+Flexibility: Prototypes allow dynamic addition of properties and methods.
+Prototype Chain Diagram
+For the example:
+
+javascript
+Copy code
+const car = Object.create(vehicle);
+Chain:
+
+car → vehicle → Object.prototype → null
