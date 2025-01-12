@@ -1,0 +1,205 @@
+Deep Dive into Array Methods
+JavaScript provides several powerful methods to manipulate and iterate over arrays. Let's dive into key methods like map, reduce, filter, find, some, and every with their explanations and real-time examples.
+
+1. map()
+The map() method creates a new array by applying a provided callback function to each element of the original array.
+
+Syntax:
+javascript
+Copy code
+const newArray = array.map(callback(currentValue, index, array));
+Use Cases:
+Transform array elements.
+Extract specific properties from objects in an array.
+Example: Transform Numbers
+javascript
+Copy code
+const numbers = [1, 2, 3, 4, 5];
+const squaredNumbers = numbers.map(num => num * num);
+console.log(squaredNumbers); // [1, 4, 9, 16, 25]
+Example: Extract Properties
+javascript
+Copy code
+const users = [
+    { id: 1, name: "Alice" },
+    { id: 2, name: "Bob" },
+    { id: 3, name: "Charlie" },
+];
+const userNames = users.map(user => user.name);
+console.log(userNames); // ["Alice", "Bob", "Charlie"]
+2. reduce()
+The reduce() method applies a callback function to an accumulator and each array element to reduce the array into a single value.
+
+Syntax:
+javascript
+Copy code
+const result = array.reduce((accumulator, currentValue, index, array) => {
+    // logic
+}, initialValue);
+Use Cases:
+Sum or aggregate array elements.
+Create custom data structures from arrays.
+Example: Calculate Sum
+javascript
+Copy code
+const numbers = [1, 2, 3, 4, 5];
+const sum = numbers.reduce((total, num) => total + num, 0);
+console.log(sum); // 15
+Example: Group Objects by Property
+javascript
+Copy code
+const people = [
+    { name: "Alice", age: 25 },
+    { name: "Bob", age: 30 },
+    { name: "Charlie", age: 25 },
+];
+const groupedByAge = people.reduce((acc, person) => {
+    acc[person.age] = acc[person.age] || [];
+    acc[person.age].push(person.name);
+    return acc;
+}, {});
+console.log(groupedByAge);
+// { 25: ["Alice", "Charlie"], 30: ["Bob"] }
+3. filter()
+The filter() method creates a new array with elements that pass the test defined by a callback function.
+
+Syntax:
+javascript
+Copy code
+const filteredArray = array.filter(callback(currentValue, index, array));
+Use Cases:
+Extract items based on a condition.
+Remove unwanted elements.
+Example: Filter Even Numbers
+javascript
+Copy code
+const numbers = [1, 2, 3, 4, 5];
+const evenNumbers = numbers.filter(num => num % 2 === 0);
+console.log(evenNumbers); // [2, 4]
+Example: Filter Active Users
+javascript
+Copy code
+const users = [
+    { name: "Alice", active: true },
+    { name: "Bob", active: false },
+    { name: "Charlie", active: true },
+];
+const activeUsers = users.filter(user => user.active);
+console.log(activeUsers);
+// [{ name: "Alice", active: true }, { name: "Charlie", active: true }]
+4. find()
+The find() method returns the first element that satisfies the condition defined by a callback function. If no element matches, it returns undefined.
+
+Syntax:
+javascript
+Copy code
+const foundItem = array.find(callback(currentValue, index, array));
+Use Cases:
+Locate a specific element in an array.
+Find an object with a unique property.
+Example: Find a Number
+javascript
+Copy code
+const numbers = [1, 2, 3, 4, 5];
+const firstEven = numbers.find(num => num % 2 === 0);
+console.log(firstEven); // 2
+Example: Find a User by ID
+javascript
+Copy code
+const users = [
+    { id: 1, name: "Alice" },
+    { id: 2, name: "Bob" },
+    { id: 3, name: "Charlie" },
+];
+const user = users.find(user => user.id === 2);
+console.log(user); // { id: 2, name: "Bob" }
+5. some()
+The some() method checks if at least one element in the array satisfies the condition defined by a callback function. It returns true or false.
+
+Syntax:
+javascript
+Copy code
+const result = array.some(callback(currentValue, index, array));
+Use Cases:
+Check if any element matches a condition.
+Example: Check for Even Numbers
+javascript
+Copy code
+const numbers = [1, 3, 5, 7, 8];
+const hasEven = numbers.some(num => num % 2 === 0);
+console.log(hasEven); // true
+Example: Check for Admin Users
+javascript
+Copy code
+const users = [
+    { name: "Alice", role: "user" },
+    { name: "Bob", role: "admin" },
+];
+const isAdminPresent = users.some(user => user.role === "admin");
+console.log(isAdminPresent); // true
+6. every()
+The every() method checks if all elements in the array satisfy the condition defined by a callback function. It returns true or false.
+
+Syntax:
+javascript
+Copy code
+const result = array.every(callback(currentValue, index, array));
+Use Cases:
+Validate the integrity of data.
+Check if all elements meet a condition.
+Example: Check if All Numbers Are Positive
+javascript
+Copy code
+const numbers = [1, 2, 3, 4, 5];
+const allPositive = numbers.every(num => num > 0);
+console.log(allPositive); // true
+Example: Check If All Users Are Active
+javascript
+Copy code
+const users = [
+    { name: "Alice", active: true },
+    { name: "Bob", active: false },
+];
+const allActive = users.every(user => user.active);
+console.log(allActive); // false
+Comparison Table
+Method	Returns	Use Case
+map	New array	Transform elements
+reduce	Single value	Aggregate or summarize
+filter	New array	Extract matching elements
+find	First matching element	Locate a specific element
+some	true/false	Check if at least one element satisfies a condition
+every	true/false	Check if all elements satisfy a condition
+Real-Time Example: Working Together
+javascript
+Copy code
+const products = [
+    { name: "Laptop", price: 1000, category: "electronics" },
+    { name: "Phone", price: 500, category: "electronics" },
+    { name: "Shoes", price: 100, category: "fashion" },
+];
+
+// 1. Extract product names
+const productNames = products.map(product => product.name);
+console.log(productNames); // ["Laptop", "Phone", "Shoes"]
+
+// 2. Filter products under $600
+const affordableProducts = products.filter(product => product.price < 600);
+console.log(affordableProducts); 
+// [{ name: "Phone", price: 500 }, { name: "Shoes", price: 100 }]
+
+// 3. Find the first product in "fashion"
+const fashionProduct = products.find(product => product.category === "fashion");
+console.log(fashionProduct); // { name: "Shoes", price: 100 }
+
+// 4. Check if any product costs more than $900
+const hasExpensiveProduct = products.some(product => product.price > 900);
+console.log(hasExpensiveProduct); // true
+
+// 5. Check if all products belong to "electronics"
+const allElectronics = products.every(product => product.category === "electronics");
+console.log(allElectronics); // false
+
+// 6. Calculate the total price of all products
+const totalPrice = products.reduce((sum, product) => sum + product.price, 0);
+console.log(totalPrice); // 1600
