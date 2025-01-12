@@ -1,0 +1,155 @@
+Event Loop and Callbacks in JavaScript
+JavaScript is a single-threaded, non-blocking, asynchronous programming language. To achieve non-blocking behavior, it uses an event loop mechanism that handles asynchronous operations such as timers, network requests, and user interactions efficiently.
+
+Key Concepts
+Call Stack:
+
+A stack data structure that keeps track of the execution context (functions being executed).
+Functions are pushed onto the stack when called and popped off once completed.
+Web APIs:
+
+These are browser-provided features like setTimeout, fetch, and DOM events.
+Asynchronous tasks are delegated to these APIs, freeing up the call stack.
+Callback Queue:
+
+A queue where asynchronous callbacks are placed after their associated task is completed (e.g., a timer finishes or an HTTP response is received).
+The event loop checks this queue and pushes callbacks onto the call stack when it's empty.
+Event Loop:
+
+A process that continuously monitors the call stack and callback queue.
+If the call stack is empty, the event loop moves the first task from the callback queue to the call stack for execution.
+The Flow of the Event Loop
+A function is called and added to the call stack.
+If the function contains an asynchronous operation (e.g., setTimeout), the operation is delegated to a Web API.
+The Web API completes the task and places the callback in the callback queue.
+The event loop moves the callback from the callback queue to the call stack once the stack is empty.
+The callback is executed.
+Example 1: Understanding setTimeout and the Event Loop
+javascript
+Copy code
+console.log("Start");
+
+setTimeout(() => {
+    console.log("Inside setTimeout");
+}, 1000);
+
+console.log("End");
+Execution Order:
+
+"Start" is logged immediately (synchronous).
+setTimeout delegates the task to a Web API with a delay of 1 second.
+"End" is logged immediately (synchronous).
+After 1 second, the callback from setTimeout is pushed to the callback queue.
+The event loop moves the callback to the call stack (since it is empty) and logs "Inside setTimeout".
+Output:
+
+sql
+Copy code
+Start
+End
+Inside setTimeout
+Example 2: Nested Asynchronous Tasks
+javascript
+Copy code
+console.log("Start");
+
+setTimeout(() => {
+    console.log("Inside first setTimeout");
+    setTimeout(() => {
+        console.log("Inside second setTimeout");
+    }, 1000);
+}, 1000);
+
+console.log("End");
+Execution Order:
+
+"Start" is logged.
+The first setTimeout is added to the Web API with a 1-second delay.
+"End" is logged.
+After 1 second, the callback of the first setTimeout is executed, logging "Inside first setTimeout".
+The nested setTimeout starts a new 1-second timer.
+After another second, the callback of the second setTimeout logs "Inside second setTimeout".
+Output:
+
+sql
+Copy code
+Start
+End
+Inside first setTimeout
+Inside second setTimeout
+Example 3: Callbacks in Action
+javascript
+Copy code
+function fetchData(callback) {
+    setTimeout(() => {
+        callback("Data received!");
+    }, 2000);
+}
+
+console.log("Fetching data...");
+
+fetchData((data) => {
+    console.log(data);
+});
+
+console.log("Continuing with other tasks...");
+Execution Order:
+
+"Fetching data..." is logged.
+fetchData sets a 2-second timer and continues executing other code.
+"Continuing with other tasks..." is logged.
+After 2 seconds, the callback is executed, logging "Data received!".
+Output:
+
+csharp
+Copy code
+Fetching data...
+Continuing with other tasks...
+Data received!
+Real-Time Examples
+Example 4: Handling User Events
+javascript
+Copy code
+document.querySelector("button").addEventListener("click", () => {
+    console.log("Button clicked!");
+});
+console.log("Waiting for user to click the button...");
+Execution Flow:
+
+The addEventListener sets up an asynchronous listener.
+"Waiting for user to click the button..." is logged immediately.
+When the button is clicked, the callback is added to the callback queue and eventually logged by the event loop.
+Example 5: File Upload Simulation
+javascript
+Copy code
+function uploadFile(callback) {
+    setTimeout(() => {
+        callback("File uploaded successfully!");
+    }, 3000);
+}
+
+console.log("Uploading file...");
+
+uploadFile((message) => {
+    console.log(message);
+});
+
+console.log("You can continue using the app...");
+Output:
+
+arduino
+Copy code
+Uploading file...
+You can continue using the app...
+File uploaded successfully!
+Why is the Event Loop Important?
+Non-blocking Behavior: The event loop ensures JavaScript doesn't freeze while waiting for asynchronous tasks like API calls or timers.
+
+Improved User Experience: By delegating long-running operations to Web APIs, the UI remains responsive.
+
+Efficient Resource Management: The event loop enables JavaScript to handle multiple tasks efficiently, even in single-threaded environments.
+
+Key Takeaways
+The event loop ensures asynchronous tasks are executed in a non-blocking manner.
+The call stack handles synchronous code, while asynchronous callbacks wait in the callback queue.
+Understanding the event loop is essential for writing efficient and responsive JavaScript applications.
