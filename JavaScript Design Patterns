@@ -1,0 +1,190 @@
+JavaScript Design Patterns
+Design patterns are proven solutions to common problems in software design. They help write code that is reusable, maintainable, and scalable. In JavaScript, design patterns leverage its flexibility and capabilities, such as closures, prototypal inheritance, and first-class functions.
+
+1. Module Pattern
+The Module Pattern is used to organize code into smaller, reusable pieces by encapsulating functionality and exposing only what is necessary. It relies on closures to create private variables and methods.
+
+Syntax and Example
+javascript
+Copy code
+const ShoppingCart = (function () {
+    // Private variables and methods
+    let items = [];
+
+    function addItem(item) {
+        items.push(item);
+    }
+
+    function getTotal() {
+        return items.reduce((total, item) => total + item.price, 0);
+    }
+
+    // Public API
+    return {
+        addItem,
+        getTotal,
+        getItems: () => [...items], // Returns a copy to prevent modification
+    };
+})();
+
+// Usage
+ShoppingCart.addItem({ name: "Laptop", price: 1000 });
+ShoppingCart.addItem({ name: "Phone", price: 500 });
+console.log(ShoppingCart.getItems()); // [{ name: "Laptop", price: 1000 }, { name: "Phone", price: 500 }]
+console.log(ShoppingCart.getTotal()); // 1500
+Real-Time Use Case
+Module Pattern is widely used for organizing utility functions, creating APIs, or managing application state in a maintainable way.
+
+Example: A configuration manager for an application:
+javascript
+Copy code
+const Config = (function () {
+    const settings = {
+        theme: "dark",
+        language: "en",
+    };
+
+    return {
+        get: (key) => settings[key],
+        set: (key, value) => (settings[key] = value),
+    };
+})();
+
+console.log(Config.get("theme")); // "dark"
+Config.set("theme", "light");
+console.log(Config.get("theme")); // "light"
+2. Singleton Pattern
+The Singleton Pattern ensures that a class has only one instance and provides a global point of access to it. It is often used to manage shared resources like configurations or state management.
+
+Syntax and Example
+javascript
+Copy code
+const Logger = (function () {
+    let instance;
+
+    function createInstance() {
+        return {
+            log: (message) => console.log(`[LOG]: ${message}`),
+        };
+    }
+
+    return {
+        getInstance: function () {
+            if (!instance) {
+                instance = createInstance();
+            }
+            return instance;
+        },
+    };
+})();
+
+// Usage
+const logger1 = Logger.getInstance();
+const logger2 = Logger.getInstance();
+
+logger1.log("This is a Singleton Pattern"); // [LOG]: This is a Singleton Pattern
+console.log(logger1 === logger2); // true
+Real-Time Use Case
+Singleton Pattern is ideal for managing:
+
+Database connections: Ensure only one connection is created and reused.
+Logging utilities: Maintain a single logging instance across the application.
+Example: Database Connection
+javascript
+Copy code
+const Database = (function () {
+    let instance;
+
+    function createConnection() {
+        return { id: Date.now(), status: "connected" };
+    }
+
+    return {
+        getConnection: function () {
+            if (!instance) {
+                instance = createConnection();
+            }
+            return instance;
+        },
+    };
+})();
+
+const db1 = Database.getConnection();
+const db2 = Database.getConnection();
+
+console.log(db1); // { id: <timestamp>, status: "connected" }
+console.log(db1 === db2); // true
+3. Factory Pattern
+The Factory Pattern is a creational design pattern that provides an interface for creating objects without specifying their concrete classes. This pattern is useful when you need to create multiple similar objects dynamically.
+
+Syntax and Example
+javascript
+Copy code
+function VehicleFactory() {
+    this.createVehicle = function (type) {
+        switch (type) {
+            case "car":
+                return new Car();
+            case "truck":
+                return new Truck();
+            default:
+                throw new Error("Vehicle type not supported");
+        }
+    };
+}
+
+function Car() {
+    this.type = "Car";
+    this.drive = () => console.log("Driving a car!");
+}
+
+function Truck() {
+    this.type = "Truck";
+    this.drive = () => console.log("Driving a truck!");
+}
+
+// Usage
+const factory = new VehicleFactory();
+const car = factory.createVehicle("car");
+const truck = factory.createVehicle("truck");
+
+car.drive(); // Driving a car!
+truck.drive(); // Driving a truck!
+Real-Time Use Case
+Factory Pattern is widely used for:
+
+UI component creation: Create buttons, modals, or dropdowns dynamically.
+Object creation: Based on user input or configuration.
+Example: Notification Factory
+javascript
+Copy code
+function NotificationFactory() {
+    this.createNotification = function (type, message) {
+        switch (type) {
+            case "success":
+                return { type, message, color: "green" };
+            case "error":
+                return { type, message, color: "red" };
+            case "warning":
+                return { type, message, color: "yellow" };
+            default:
+                throw new Error("Notification type not supported");
+        }
+    };
+}
+
+const factory = new NotificationFactory();
+const successNotification = factory.createNotification("success", "Operation was successful!");
+const errorNotification = factory.createNotification("error", "Something went wrong!");
+
+console.log(successNotification); // { type: "success", message: "Operation was successful!", color: "green" }
+console.log(errorNotification); // { type: "error", message: "Something went wrong!", color: "red" }
+Comparison of the Patterns
+Pattern	Purpose	Examples
+Module Pattern	Encapsulates functionality, exposing a clean public API while keeping internal details private.	Shopping carts, configuration managers.
+Singleton Pattern	Ensures a single instance of a class exists and provides a global access point to it.	Database connections, logging utilities.
+Factory Pattern	Dynamically creates objects without specifying their exact class.	UI components, notifications, vehicle creation.
+Summary
+Module Pattern: Encapsulation and clean APIs for organizing code.
+Singleton Pattern: Manage a single shared instance, useful for state or resources.
+Factory Pattern: Dynamically create objects, ideal for varying use cases.
